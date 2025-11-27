@@ -14,7 +14,7 @@ def dashboard():
       "authentication":True
    }
    print("testing to dashboard")
-   return render_template('_master.html',data=session)
+   return render_template('dashboard.html',data=session)
 
 @app.route(basename+'/auth',methods=['POST'])
 def authenticate():
