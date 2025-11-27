@@ -3,7 +3,7 @@
 <html lang="en">
 
 {% include '_head.html' %}
-{% if data.authentication==True %}
+{% if data.get("authenticated") %}
 <body class="g-sidenav-show   bg-gray-100">
   <div class="min-height-300 bg-dark position-absolute w-100"></div>
   {% include '_aside.html' %}
@@ -11,7 +11,7 @@
     <!-- Navbar -->
     {% include '_navbar.html' %}
     <!-- End Navbar -->
-    {% include '_endbar.html' %}
+    {% include '_end.html' %}
   </main>
   {% include '_fixedplugin.html' %}
   <!--   Core JS Files   -->
