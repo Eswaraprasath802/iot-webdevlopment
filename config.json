@@ -1,0 +1,4 @@
+{
+  "mongodb_connection":"mongodb://Eswaraprasath:CH3COONA..@mongodb.selfmade.ninja:27017/?authSource=users",
+  "basename":"/iotweb"
+}
