@@ -16,10 +16,6 @@ def welcome():
    }
    return render_template('helloworld.html',data=d)
 
-@app.route(basename+"/dashboard")
-def dashboard():
-   return render_template('dash.html')
-   
 @app.route(basename+'/hai')
 def hello_world():
    return 'welcome Eswaraprasath'
