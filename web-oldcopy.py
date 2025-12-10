@@ -14,7 +14,6 @@ application=app = Flask(__name__,static_folder="assets",static_url_path=basename
 app.secret_key= get_config("secret_key")
 app.register_blueprint(home.bp)
 app.register_blueprint(api.bp)
-print("hai")
 app.register_blueprint(files.bp)
 
 
