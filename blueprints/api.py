@@ -5,7 +5,6 @@ bp=Blueprint('api', __name__, url_prefix='/api/v1')
 
 @bp.route('/', methods=['POST'])
 def register():
-   print(" i am in")
    if "username" in request.form and "password" in request.form and "confirm_password" in request.form  and "name" in request.form and "email" in request.form:
       username=request.form["username"]
       password=request.form["password"]
@@ -55,13 +54,13 @@ def authenticate():
             session["authenticated"]=True
             session["username"]=username
             session["sessid"]=sessid
-            # if redirect in request.form and request.form["redirect"]==True:
-            return redirect(url_for('home.dashboard'))
-            # else:
-            #    return {
-            #    "message":"successfully authenticated",
-            #    "authendicated":True
-            # },200
+            if redirect in request.form and request.form["redirect"]==True:
+               return redirect(url_for('home.dashboard'))
+            else:
+               return {
+               "message":"successfully authenticated",
+               "authendicated":True
+            },200
          except Exception as e:  
              return {
                   "status": "some issue",
