@@ -2,7 +2,7 @@ from flask import Flask,redirect,url_for,request,render_template
 import os
 import math
 
-app = Flask(__name__)
+app = Flask(__name__,template_folder="templates_old")
 basename='/iotweb'
 #In the above line we use /iotweb when we serach in the localhost with localhost:7000/iot/ it give error To 
 # Resolve this we use /iotweb/ in the above line so we can search both /iotweb and /iotweb/ 
@@ -14,7 +14,7 @@ def welcome():
       "avatar":"https://gitlab.com/uploads/-/system/user/avatar/742684/avatar.png?width=800"
       
    }
-   return render_template('bootstrap.html',data=d)
+   return render_template('helloworld.html',data=d)
 
 @app.route(basename+"/dashboard")
 def dashboard():
@@ -49,7 +49,7 @@ def cpuinformarmation():
 
 @app.route(basename+'/hello',methods=['GET','POST'])
 def welcomeworld():
-   return {"result":(math.sqrt(int(request.form['num'])))}
+   return {"result":(math.sqrt(int(request.form['num'])))
 
 
 #we can use <Datatype:Variable_name>

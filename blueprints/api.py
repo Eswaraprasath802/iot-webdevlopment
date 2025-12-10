@@ -55,13 +55,13 @@ def authenticate():
             session["authenticated"]=True
             session["username"]=username
             session["sessid"]=sessid
-            if redirect in request.form and request.form["redirect"]==True:
-               return redirect(url_for('home.dashboard'))
-            else:
-               return {
-               "message":"successfully authenticated",
-               "authendicated":True
-            },200
+            # if redirect in request.form and request.form["redirect"]==True:
+            return redirect(url_for('home.dashboard'))
+            # else:
+            #    return {
+            #    "message":"successfully authenticated",
+            #    "authendicated":True
+            # },200
          except Exception as e:  
              return {
                   "status": "some issue",

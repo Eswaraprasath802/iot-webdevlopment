@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.7/viewer.css" integrity="sha512-9NawOLzuLE2GD22PJ6IPWXEjPalb/FpdH1qMpgXdaDM+0OfxEV75ZCle6KhZi0vM6ZWvMrNnIZv6YnsL+keVmA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>img{
+    height: 500px;
+  }
+      </style>
+  </head>
+  <body>
+    <h1>Hello, world!</h1>
+    <div class="container"> 
+      <!-- a block container is required -->
+<div>
+  <img id="image" src="picture.jpg" alt="Picture">
+</div>
+<div class="container text-center">
+  <div class="row">
+    <div class="col">
+              <div id="Raspberrypi-cam" class="card text-center">
+            <div class="Raspberrypi-cam">
+              Featured
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <button id="Raspberrypi-cam-1" type="button" class="btn btn-warning">See the image</button>
+            </div>
+            <div class="card-footer text-body-secondary">
+              2 days ago
+            </div>
+          </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <ul id="images" style="display:none;">
+    <li><img src="https://picsum.photos/id/1/5000/3333" alt="Picture 1"></li>
+    <li><img src="https://picsum.photos/id/8/5000/3333" alt="Picture 2"></li>
+    <li><img src="https://picsum.photos/id/7/4728/3168" alt="Picture 3"></li>
+  </ul>
+</div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.7/viewer.min.js" integrity="sha512-lZD0JiwhtP4UkFD1mc96NiTZ14L7MjyX5Khk8PMxJszXMLvu7kjq1sp4bb0tcL6MY+/4sIuiUxubOqoueHrW4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.7/viewer.common.js" integrity="sha512-LlQl0sFUcI1vIDM7mJLlc6a8ED/7OodBOExKGh93wuOhftpuR+LqrihUhDERtnX526QoQqqKWxg6BpMjEibyMw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+ function apicall() {
+  return `
+    <li><img src="https://picsum.photos/id/1/5000/3333" alt="Picture 1"></li>
+    <li><img src="https://picsum.photos/id/8/5000/3333" alt="Picture 2"></li>
+    <li><img src="https://picsum.photos/id/7/4728/3168" alt="Picture 3"></li>
+  `
+}
+
+const gallery = new Viewer(document.getElementById('images'),{
+  loop:false,
+  interval:500,
+  shown:function(event){
+    console.log(event);
+    console.log("shown");
+  },
+  view:function(event){
+     console.log(event.detail.index+1+"/"+gallery.length)
+    console.log("it is show")
+    current_image=event.detail.index
+    noimage=gallery.length
+    if(noimage-current_image<=1){
+      console.log("the image want to be added");
+      $("#images").append(apicall());
+      gallery.update();
+    }
+  },
+  
+});
+    $("#Raspberrypi-cam-1").on('click',function(e){
+      gallery.show()
+    });
+   $('#Raspberrypi-cam').on('mouseenter', function(e) {
+  gallery.zoomTo(1);
+});
+
+
+
+ </script>
+  </body>
+</html>
