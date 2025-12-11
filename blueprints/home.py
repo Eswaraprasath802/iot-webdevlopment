@@ -9,3 +9,9 @@ def dashboard():
    }
    print("testing to dashboard")
    return render_template('dashboard.html',data=session)
+
+@bp.route('/devices')
+def devices():
+   print("welcome to devices")
+   return render_template('devices.html',data=session)
+

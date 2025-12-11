@@ -5,7 +5,7 @@ import os
 import math
 from sourcefile import get_config
 from sourcefile.User import user
-from blueprints import home,api,files
+from blueprints import home,api,files,motion
 
 
 # app=Flask(__name__
@@ -15,6 +15,7 @@ app.secret_key= get_config("secret_key")
 app.register_blueprint(home.bp)
 app.register_blueprint(api.bp)
 app.register_blueprint(files.bp)
+app.register_blueprint(motion.bp)
 
 
 

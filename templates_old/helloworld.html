@@ -64,11 +64,13 @@
 const gallery = new Viewer(document.getElementById('images'),{
   loop:false,
   interval:500,
-  shown:function(event){
+  shown:function(event){ 
+    //  $(images).on('show',function(event)) bothe refers to the same
     console.log(event);
     console.log("shown");
   },
   view:function(event){
+     console.log(event)
      console.log(event.detail.index+1+"/"+gallery.length)
     console.log("it is show")
     current_image=event.detail.index

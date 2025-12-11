@@ -1,9 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 {% include '_head.html' %}
 {% if data.get("authenticated") %}
+
 <body class="g-sidenav-show   bg-gray-100">
   <div class="min-height-300 bg-dark position-absolute w-100"></div>
   {% include '_aside.html' %}
@@ -11,26 +11,30 @@
     <!-- Navbar -->
     {% include '_navbar.html' %}
     <!-- End Navbar -->
-    {% include '_end.html' %}
+     {% block main %} {% endblock %}
+    {% include '_footer.html' %}
   </main>
   {% include '_fixedplugin.html' %}
+  {% include 'dummbymodal.html' %}
   <!--   Core JS Files   -->
   {% include "_corejs.html" %}
 </body>
 {% else %}
+
 <body class="">
   <div class="container position-sticky z-index-sticky top-0">
     <div class="row">
       <div class="col-12">
         <!-- Navbar -->
-       {% include "_signnavbar.html" %}
+        {% include "_signnavbar.html" %}
         <!-- End Navbar -->
       </div>
     </div>
   </div>
   {% include "_signmain.html" %}
   <!--   Core JS Files   -->
- {% include "_signcorejs.html" %}
+  {% include "_signcorejs.html" %}
 </body>
 {% endif %}
+
 </html>

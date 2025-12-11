@@ -45,7 +45,7 @@ def cpuinformarmation():
 
 @app.route(basename+'/hello',methods=['GET','POST'])
 def welcomeworld():
-   return {"result":(math.sqrt(int(request.form['num'])))
+   return {"result":(math.sqrt(int(request.form['num'])))}
 
 
 #we can use <Datatype:Variable_name>
