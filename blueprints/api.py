@@ -78,3 +78,17 @@ def deauthenticate():
    return {
       "status": "success",
       "message": "Deauthenticated successfully" },200
+
+@bp.route('/generate_api_key', methods=['POST'])
+def generate_api_key(name,group,expiry):
+   if session.get("authenticated"):
+      pass
+   else:
+      pass
+
+@bp.route('/get_api_group', methods=['GET'])
+def get_api_group():
+   if session.get("authenticated"):
+      pass
+   else:
+      pass

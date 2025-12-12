@@ -5,7 +5,7 @@ import os
 import math
 from sourcefile import get_config
 from sourcefile.User import user
-from blueprints import home,api,files,motion
+from blueprints import home,api,files,motion,dialog
 
 
 # app=Flask(__name__
@@ -16,7 +16,7 @@ app.register_blueprint(home.bp)
 app.register_blueprint(api.bp)
 app.register_blueprint(files.bp)
 app.register_blueprint(motion.bp)
-
+app.register_blueprint(dialog.bp)
 
 
 
