@@ -6,20 +6,27 @@ db=databaseconnection.connection()
 from flask import Flask,redirect,url_for,request,render_template,session,Blueprint
 
 class APIcollection(metaclass=MongoGetterSetter):
-  def __init__(self,_id):
-    self._collection=db.sessions  # the two line must me like the same varaiable nothing could ne change 2 hours to find the w
-    self._filter_query ={"id":_id}
+    def __init__(self,_id):
+        self._collection = db.api_keys
+        self._filter_query = {
+    '$or': [
+        {"id": _id},
+        {"device_name": _id}
+    ]
+}
+
 
 class API:
   def __init__(self,_id):
     self._id=_id
     self.API_collection=APIcollection(_id)
+    return self.API_collection
      
   def is_validy(self):
-    vaildity = self.session_collection.vaildity
+    vaildity = self.API_collection.vaildity
     print(" all right")
-    login_time = self.session_collection.time
-    # vaildity = self.session_collection.vaildity
+    login_time = self.API_collection.time
+    # vaildity = self.API_collection.vaildity
     if vaildity==0:
       return True
     else:
@@ -32,11 +39,11 @@ class API:
     '''
 
   @staticmethod
-  def register_api(device_name,device_group,request,vaildity=0,_type="api"):
+  def register_api(session,name,description,remarks,request=request,_type="api"):
     if session.get("authenticated") is None or session.get("authenticated")==False:
       raise Exception("User not authenticated")
     else:
-      collection=db.api_keys
+      collection=db.groups
       username=session["username"]
       id_=str(uuid4())
       if request is not None:
@@ -52,13 +59,13 @@ class API:
       session_generated=collection.insert_one({
         "id":str(id_),
         "username":username,
-         "device_name":device_name,
-        "device_group":device_group,
+         "device_name":name,
+        "device_group":description,
+        "remarks":remarks,
         "time":time(),
-        "vaildity":vaildity, #7 days
         "active":True,
         "type":_type,
         "request":request_info
       })
-      return API(id_)
+      return id_
     

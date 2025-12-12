@@ -33,10 +33,10 @@ class API:
         "active":True,
   
       })
-      return APIgroups(id_)
+      return API(id_)
     
   @staticmethod
   def get_all_api_keys():
-    collection=db.groups
+    collection=db.api_keys
     results=collection.find({})
     return results

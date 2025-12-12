@@ -23,9 +23,41 @@ $('.btn-to-add-api-key').on('click',function() {
         d.setButtons([
             {
                 name: 'Generate Key',
-                class: 'btn btn-success',
+                class: 'btn btn-success btn-generate-api-key',
                 onClick: function(event) {
-                     $(event.data.modal).modal('hide');
+                var modal=$(event.data.modal);
+                var device_name=modal.find('#api-name').val();
+                console.log(device_name);
+                var group_name=modal.find('#api-group').val();
+                console.log(group_name);
+                var description=modal.find('#api-remarks').val();
+                console.log(description);
+                if (device_name.length <3 || group_name.length <3){
+                    animateCSS('.btn-generate-api-key', 'headShake');
+                    return;
+            }
+            else{
+                        $.post('/api/v1/generate/api/key',
+                        {
+                            'name':device_name,
+                            'description':group_name,
+                            'remarks':description
+                        },
+                        function(data, status, xhr){
+                            console.log(data); 
+                            if (status=='success'){
+                            //    window.location.reload();
+                            console.log("The status is success and there is some thing worng");
+                              $(event.data.modal).modal('hide');
+                              key=new Dialog('API Key Generated Successfully',data.key)
+                              key.show();
+                            }
+                            else{
+                                alert('Error Occurred. Try Again');
+                                 console.log("The status is Failed and there is some thing worng");
+                            }
+                        });
+                    }
             }
         }
         ])
@@ -35,7 +67,6 @@ $('.btn-to-add-api-key').on('click',function() {
 $('.btn-to-add-api-key-group').on('click',function() {
     $.get('/api/dialog/api_key_groups', function(data, status, xhr) {
         d=new Dialog('Add Device Group',data
-            ,{"backdrop": "static"}
         );
 
         d.setButtons([
@@ -47,9 +78,28 @@ $('.btn-to-add-api-key-group').on('click',function() {
                     var group_name=modal.find('#group-name').val();
                     console.log(group_name);
                     backdrop = true;
-                    if (group_name.length == 0) {
+                    var description=modal.find('#api-remarks').val();
+                    console.log(description);
+                    if (group_name.length <3 || description.length <5){
                         animateCSS('.btn-button-api', 'headShake');
                         return;
+                    }
+                    else{
+                        $.post('/api/v1/get/api/group',
+                        {
+                            'name':group_name,
+                            'description':description
+                        },
+                        function(data, status, xhr){
+                            console.log(data);
+                            if (status=='success'){
+                            //    window.location.reload();
+                              $(event.data.modal).modal('hide');
+                            }
+                            else{
+                                alert('Error Occurred. Try Again');
+                            }
+                        });
                     }
 
             }

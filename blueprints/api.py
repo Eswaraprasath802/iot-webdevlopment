@@ -1,6 +1,8 @@
 from flask import Flask, render_template, session, redirect, url_for, request, Blueprint
 from sourcefile.User import user
 from sourcefile.session import Session
+from sourcefile.apigroups import API as apigroup
+from sourcefile.API import API, APIcollection
 bp=Blueprint('api', __name__, url_prefix='/api/v1')
 
 @bp.route('/', methods=['POST'])
@@ -79,16 +81,32 @@ def deauthenticate():
       "status": "success",
       "message": "Deauthenticated successfully" },200
 
-@bp.route('/generate_api_key', methods=['POST'])
-def generate_api_key(name,group,expiry):
+@bp.route('/generate/api/key', methods=['POST'])
+def generate_api_key():
+   name=request.form["name"]
+   description=request.form["description"]
+   remarks=request.form["remarks"]
    if session.get("authenticated"):
-      pass
+      a=API.register_api(session,name,description,remarks)
+      return {
+         "status": "success",
+         "message": "API key generated successfully",
+         "key": a
+      },201
    else:
       pass
 
-@bp.route('/get_api_group', methods=['GET'])
+@bp.route('/get/api/group', methods=['POST'])
 def get_api_group():
-   if session.get("authenticated"):
-      pass
-   else:
-      pass
+   name=request.form["name"]
+   description=request.form["description"]
+   apigroup.register_group(name,description)
+   return {
+         "status": "success",
+         "message": "API group registered successfully"
+      },201
+   return {
+         "status": "failure",
+         "message": "User not authenticated"
+      },401
+      
