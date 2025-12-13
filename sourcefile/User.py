@@ -9,6 +9,7 @@ import bcrypt
 from flask import Flask,redirect,url_for,request,render_template,session,Blueprint
 from uuid import uuid4
 from mongogettersetter import MongoGetterSetter
+from sourcefile import hash_password
 
 db=databaseconnection.connection("Eswaraprasath_Iot")
 

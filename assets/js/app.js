@@ -47,7 +47,13 @@ $('.btn-to-add-api-key').on('click',function() {
                               $(event.data.modal).modal('hide');
                               key=new Dialog('API Key Generated Successfully',data.key)
                               key.show();
-                            }
+                                $.get('/row?hash='+data.hash, function(data, status, xhr){
+                                    if(status=="success"){
+                                        $("#row_of_table").append(data);
+                                        //TODO: Check if we need to reinitialize click event for delete button, since its dynamically added to DOM.
+                                    }
+                                });
+                            }  
                             else{
                                 alert('Error Occurred. Try Again');
                                  console.log("The status is Failed and there is some thing worng");

@@ -4,23 +4,23 @@ from uuid import uuid4
 from time import time
 db=databaseconnection.connection()
 from flask import Flask,redirect,url_for,request,render_template,session,Blueprint
+from sourcefile import hash_password
 
 class APIcollection(metaclass=MongoGetterSetter):
     def __init__(self,_id):
-        self._collection = db.groups
-        self._filter_query = {
+        self._collection = db.api_keys
+        self._filter_query ={
     '$or': [
         {"id": _id},
-        {"device_name": _id}
+        {"hash": _id}
     ]
 }
 
-
 class API:
   def __init__(self,_id):
-    self._id=_id
+    self.id=_id
     self.API_collection=APIcollection(_id)
-    return self.API_collection
+   
      
   def is_validy(self):
     vaildity = self.API_collection.vaildity
@@ -43,7 +43,7 @@ class API:
     if session.get("authenticated") is None or session.get("authenticated")==False:
       raise Exception("User not authenticated")
     else:
-      collection=db.groups
+      collection=db.api_keys
       username=session["username"]
       id_=str(uuid4())
       if request is not None:
@@ -65,7 +65,22 @@ class API:
         "time":time(),
         "active":True,
         "type":_type,
-        "request":request_info
+        "request":request_info,
+        "hash":hash_password(id)
       })
-      return id_
+      return API(id_)
+    
+  @staticmethod
+  def get_api(session):
+    if session.get("authenticated") is None or session.get("authenticated")==False:
+      raise Exception("User not authenticated")
+    else:
+      username=session['username']
+      groups=db.api_keys
+      result=groups.find({"username":username})
+      print(result)
+      result = list(result)
+      return result
+
+      
     

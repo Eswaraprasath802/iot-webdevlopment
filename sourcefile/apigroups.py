@@ -7,20 +7,25 @@ from flask import Flask,redirect,url_for,request,render_template,session,Bluepri
 
 class APIgroups(metaclass=MongoGetterSetter):
   def __init__(self,_id):
-    self._collection=db.api_keys  # the two line must me like the same varaiable nothing could ne change 2 hours to find the w
-    self._filter_query ={"id":_id}
+    self._collection=db.groups  # the two line must me like the same varaiable nothing could ne change 2 hours to find the w
+    self._filter_query ={
+    '$or': [
+        {"id": _id},
+        {"hash": _id}
+    ]
+}
 
 class API:
   def __init__(self,_id):
-    self._id=_id
     self.API_collection=APIgroups(_id)
+    self._id=str(self.API_collection.id)
 
   @staticmethod
   def register_group(name,description):
     if session.get("authenticated") is None or session.get("authenticated")==False:
       raise Exception("User not authenticated")
     else:
-      collection=db.api_keys
+      collection=db.groups
       username=session["username"]
       id_=str(uuid4())
       session_generated=collection.insert_one({
@@ -37,6 +42,7 @@ class API:
     
   @staticmethod
   def get_all_api_keys():
-    collection=db.api_keys
+    collection=db.groups
     results=collection.find({})
+    results = list(results)
     return results

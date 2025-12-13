@@ -1,4 +1,7 @@
 from flask import Flask, render_template, session, redirect, url_for, request, Blueprint
+from sourcefile.apigroups import API as apigroup
+from sourcefile.API import API, APIcollection
+from sourcefile import hash_password
 bp=Blueprint('home', __name__, url_prefix='/')
 
 @bp.route('/dashboard')
@@ -13,5 +16,14 @@ def dashboard():
 @bp.route('/devices')
 def devices():
    print("welcome to devices")
-   return render_template('devices.html',data=session)
+   key=API.get_api(session)
+   group=apigroup.get_all_api_keys()
+   return render_template('devices.html',data=session,key=key,groups=group,hash_password=hash_password)
+
+@bp.route('/row')
+def row():
+   group=apigroup.get_all_api_keys()
+   hashing=request.args.get('hash')
+   api=API(hashing)
+   return render_template('api_key/row.html',key=api.API_collection.get(),groups=group)
 
