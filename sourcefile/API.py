@@ -7,7 +7,7 @@ from flask import Flask,redirect,url_for,request,render_template,session,Bluepri
 
 class APIcollection(metaclass=MongoGetterSetter):
     def __init__(self,_id):
-        self._collection = db.api_keys
+        self._collection = db.groups
         self._filter_query = {
     '$or': [
         {"id": _id},

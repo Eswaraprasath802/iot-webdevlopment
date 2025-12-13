@@ -7,7 +7,7 @@ from flask import Flask,redirect,url_for,request,render_template,session,Bluepri
 
 class APIgroups(metaclass=MongoGetterSetter):
   def __init__(self,_id):
-    self._collection=db.groups  # the two line must me like the same varaiable nothing could ne change 2 hours to find the w
+    self._collection=db.api_keys  # the two line must me like the same varaiable nothing could ne change 2 hours to find the w
     self._filter_query ={"id":_id}
 
 class API:

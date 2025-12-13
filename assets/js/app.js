@@ -27,11 +27,8 @@ $('.btn-to-add-api-key').on('click',function() {
                 onClick: function(event) {
                 var modal=$(event.data.modal);
                 var device_name=modal.find('#api-name').val();
-                console.log(device_name);
                 var group_name=modal.find('#api-group').val();
-                console.log(group_name);
                 var description=modal.find('#api-remarks').val();
-                console.log(description);
                 if (device_name.length <3 || group_name.length <3){
                     animateCSS('.btn-generate-api-key', 'headShake');
                     return;
@@ -44,7 +41,6 @@ $('.btn-to-add-api-key').on('click',function() {
                             'remarks':description
                         },
                         function(data, status, xhr){
-                            console.log(data); 
                             if (status=='success'){
                             //    window.location.reload();
                             console.log("The status is success and there is some thing worng");
@@ -68,18 +64,14 @@ $('.btn-to-add-api-key-group').on('click',function() {
     $.get('/api/dialog/api_key_groups', function(data, status, xhr) {
         d=new Dialog('Add Device Group',data
         );
-
         d.setButtons([
             {
-                name: 'Generate Key',
+                name: 'Create Group',
                 class: 'btn btn-success btn-button-api',
                 onClick: function(event) {
                     var modal =$(event.data.modal);
                     var group_name=modal.find('#group-name').val();
-                    console.log(group_name);
-                    backdrop = true;
                     var description=modal.find('#api-remarks').val();
-                    console.log(description);
                     if (group_name.length <3 || description.length <5){
                         animateCSS('.btn-button-api', 'headShake');
                         return;
