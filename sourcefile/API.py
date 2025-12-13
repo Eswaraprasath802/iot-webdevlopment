@@ -18,8 +18,8 @@ class APIcollection(metaclass=MongoGetterSetter):
 
 class API:
   def __init__(self,_id):
-    self.id=_id
     self.API_collection=APIcollection(_id)
+    self.id=self.API_collection.id
    
      
   def is_validy(self):
@@ -66,8 +66,9 @@ class API:
         "active":True,
         "type":_type,
         "request":request_info,
-        "hash":hash_password(id)
-      })
+        "hash":hash_password(id_) 
+        # This line is one of the important lines       
+        })
       return API(id_)
     
   @staticmethod

@@ -25,5 +25,5 @@ def row():
    group=apigroup.get_all_api_keys()
    hashing=request.args.get('hash')
    api=API(hashing)
-   return render_template('api_key/row.html',key=api.API_collection.get(),groups=group)
+   return render_template('api_key/row.html',key=api.API_collection._data,groups=group)
 
