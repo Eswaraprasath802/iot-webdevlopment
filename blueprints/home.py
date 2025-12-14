@@ -11,7 +11,18 @@ def dashboard():
       "authentication":True
    }
    print("testing to dashboard")
-   return render_template('dashboard.html',data=session)
+   return render_template('dashboard.html',data=session) 
+
+@bp.route("enable/button",methods=['POST'])
+def enable():
+   api_hash=request.form['id']
+   api_status=request.form['status']
+   api=API(api_hash)
+   api.API_collection.active=api_status=='true'
+   return{
+      'key':api.API_collection.active,
+      "hash": api_hash
+   },200
 
 @bp.route('/devices')
 def devices():
@@ -28,4 +39,3 @@ def row(hash):
    key=api.API_collection._data
    print(key)
    return render_template('api_key/row.html',key=api.API_collection._data,groups=group)
-

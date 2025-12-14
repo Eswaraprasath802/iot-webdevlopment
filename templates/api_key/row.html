@@ -19,13 +19,13 @@
   </td>
   {% endif %}
   {% endfor %}
-  {% if key.active==true %}
-  <td class="align-middle text-center text-sm">
-    <span class="badge badge-sm bg-gradient-success">Online</span>
+  {% if key.active %}
+  <td class="align-middle text-center text-sm api-status-badge welcome">
+    <span class="badge badge-sm bg-gradient-success ">Online</span>
   </td>
   {% else %}
-  <td class="align-middle text-center text-sm">
-    <span class="badge badge-sm bg-gradient-secondary">Offline</span>
+  <td class="align-middle text-center text-sm hai">
+    <span class="badge badge-sm bg-gradient-secondary ">Offline</span>
   </td>
   {% endif %}
   <td class="align-middle text-center">
@@ -33,7 +33,7 @@
   </td>
   <td class="align-middle">
     <div class="form-check form-switch">
-      <input class="form-check-input" type="checkbox" id="{{key.hash}}" checked="">
+      <input class="form-check-input btn-api-switch" type="checkbox" id="{{key.hash}}" {% if key.active %}{{'checked'}}{% endif %}>
       <label class="form-check-label" for="the welcomestatus">Checked switch</label>
     </div>
   </td>

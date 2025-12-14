@@ -16,7 +16,26 @@ const animateCSS = (element, animation, prefix = 'animate__') =>
     node.addEventListener('animationend', handleAnimationEnd, {once: true});
   });
 
+$('.btn-api-switch').on('change',function(){
+    var api_keys=$(this).attr('id');
+    var status=$(this).is(":checked"); 
+    var badge=$(this).parent().parent().parent().find('.api-status-badge');
+    $.post('/enable/button',{
+        'id':api_keys,
+        'status':status
 
+    },
+    function(data, status, xhr){
+        if (data.key){
+            $(badge).removeClass('.hai').addClass('.welcome').html('Online');
+        }
+        else{
+            $(badge).removeClass('.welcome').addClass('.hai').html('Offline');
+        }
+    }
+
+);
+});
 $('.btn-to-add-api-key').on('click',function() {
     $.get('/api/dialog/api_keys', function(data, status, xhr) {
         d=new Dialog('Add Device',data);
