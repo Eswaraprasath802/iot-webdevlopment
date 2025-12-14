@@ -20,10 +20,12 @@ def devices():
    group=apigroup.get_all_api_keys()
    return render_template('devices.html',data=session,key=key,groups=group,hash_password=hash_password)
 
-@bp.route('/row')
-def row():
+@bp.route('/row/<hash>',methods=['GET'])
+def row(hash):
    group=apigroup.get_all_api_keys()
-   hashing=request.args.get('hash')
-   api=API(hashing)
+   # hashing=request.args.get('hash')
+   api=API(hash)
+   key=api.API_collection._data
+   print(key)
    return render_template('api_key/row.html',key=api.API_collection._data,groups=group)
 

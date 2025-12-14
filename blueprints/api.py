@@ -3,7 +3,6 @@ from sourcefile.User import user
 from sourcefile.session import Session
 from sourcefile.apigroups import API as apigroup
 from sourcefile.API import API, APIcollection
-from sourcefile import hash_password as md5_hash
 
 
 bp=Blueprint('api', __name__, url_prefix='/api/v1')

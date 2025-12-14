@@ -43,13 +43,11 @@ $('.btn-to-add-api-key').on('click',function() {
                         function(data, status, xhr){
                             if (status=='success'){
                             //    window.location.reload();
-                            console.log("The status is success and there is some thing worng");
                               $(event.data.modal).modal('hide');
                               key=new Dialog('API Key Generated Successfully',data.key)
                               key.show();
-                                $.get('/row?hash='+data.hash, function(random_data, status, xhr){
+                                $.get('/row/'+data.hash, function(random_data, status, xhr){
                                     if(status=="success"){
-                                        console.log(random_data.key);
                                         $("#row_of_table").append(random_data);
                                         //TODO: Check if we need to reinitialize click event for delete button, since its dynamically added to DOM.
                                     }
