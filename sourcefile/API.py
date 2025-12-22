@@ -19,19 +19,23 @@ class APIcollection(metaclass=MongoGetterSetter):
 class API:
   def __init__(self,_id):
     self.API_collection=APIcollection(_id)
-    self.id=self.API_collection.id
+    try:
+      self._id=self.API_collection.id # this line purpose is to check the passed id and the id qquerying from the database are same or not
+    except Exception as e:
+      raise Exception("Invalid API key")
    
      
   def is_validy(self):
-    vaildity = self.API_collection.vaildity
+    vaildity=0
     print(" all right")
     login_time = self.API_collection.time
     # vaildity = self.API_collection.vaildity
     if vaildity==0:
-      return True
+      return self.API_collection.active
     else:
-      time_now=time()
-      return time_now-login_time < vaildity
+      if self.API_collection.active:
+        time_now=time()
+        return time_now-login_time < vaildity
     '''
     Types of Sessions
     1. plain - username and password based authentication
