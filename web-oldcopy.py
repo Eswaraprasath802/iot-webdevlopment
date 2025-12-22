@@ -23,7 +23,7 @@ def get_token():
       try :
          api=API(auth_token)
          validity=api.is_validy()
-         session["authenticated"]=True
+         session["authenticated"]=validity
          session['username']=api.API_collection.username
          session['type']='api'
          session['sessid']=None
