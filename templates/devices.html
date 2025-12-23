@@ -7,7 +7,7 @@
         <div class="card-header pb-0">
           <div class="float-start"><h6>Device Table </h6></div>
           <div class="float-end">
-            <button class="btn btn-danger btn-to-add-api-key"> Add devices</button>
+            <button class="btn bg-gradient-success btn-to-add-api-key"> Add devices</button>
             <button class="btn btn-primary btn-to-add-api-key-group"> Add Group</button>
           </div>
         </div>
@@ -17,6 +17,7 @@
               <thead>
                 <tr>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Name</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> API key</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Device Name</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">last seen</th>
@@ -27,13 +28,13 @@
                 {% for key in key %}
                 {% include 'api_key/row.html' %}
                 {% endfor %}
-            </tbody>
-           
-          </table>
+              </tbody>
+              
+            </table>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-{% endblock %}
+  
+  {% endblock %}

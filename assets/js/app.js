@@ -107,7 +107,6 @@ $('.btn-to-add-api-key-group').on('click',function() {
                             'description':description
                         },
                         function(data, status, xhr){
-                            console.log(data);
                             if (status=='success'){
                             //    window.location.reload();
                               $(event.data.modal).modal('hide');
@@ -132,3 +131,33 @@ $('.btn-to-add-api-key-group').on('click',function() {
         d.show();
     });
 });
+
+$('.delete-button').on('click',function(){
+    var api_key=$(this).attr('id');
+    var orginal_key=$(this).attr('importantid')
+    // $.get('/row/'+data.hash, function(random_data, status, xhr){
+    
+    $.get('api/dialog/api_key_delete/'+api_key,function(variable_data,status,xhr){
+        h=new Dialog('delete Device Group',variable_data);
+        h.setButtons([
+            {
+                name:"Delete button",
+                class:'btn bg-gradient-success btn-delete',
+                onClick:function(event){
+                    $.get('api/delete/database/'+orginal_key,function(singular_data,status,xhr){
+                        if (status=='success'){
+                            console.log("delte databse sucessfull")
+                             var modal =$(event.data.modal);
+                              $(modal).modal('hide');
+                              $("#row" + orginal_key).remove();
+                            
+                        }
+
+                    })
+                }
+            }
+        ])
+        h.show();
+    })
+
+})

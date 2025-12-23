@@ -2,6 +2,7 @@ from flask import Flask, render_template, session, redirect, url_for, request, B
 from sourcefile.apigroups import API as apigroup
 from sourcefile.API import API, APIcollection
 from sourcefile import hash_password
+from sourcefile import time_ago,mask
 bp=Blueprint('home', __name__, url_prefix='/')
 
 @bp.route('/dashboard')
@@ -29,7 +30,7 @@ def devices():
    print("welcome to devices")
    key=API.get_api(session)
    group=apigroup.get_all_api_keys()
-   return render_template('devices.html',data=session,key=key,groups=group,hash_password=hash_password)
+   return render_template('devices.html',data=session,key=key,groups=group,hash_password=hash_password,time_ago=time_ago,mask=mask)
 
 @bp.route('/row/<hash>',methods=['GET'])
 def row(hash):
@@ -37,5 +38,12 @@ def row(hash):
    # hashing=request.args.get('hash')
    api=API(hash)
    key=api.API_collection._data
-   print(key)
-   return render_template('api_key/row.html',key=api.API_collection._data,groups=group)
+   return render_template('api_key/row.html',key=api.API_collection._data,groups=group,time_ago=time_ago,mask=mask)
+
+@bp.route('api/delete/database/<database_name>',methods=['GET'])
+def datebase_delete(database_name):
+   api=API(database_name)
+   api.API_collection.delete()
+   return{
+      'status':'success'
+   },200

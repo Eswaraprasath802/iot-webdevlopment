@@ -13,3 +13,9 @@ def api_keys_dialog():
 def api_key_groups_dialog():
     return render_template('dialogs/api_key_group.html')
 
+
+@bp.route('/api_key_delete/<api_key>',methods=['GET'])
+def api_key_delete(api_key):
+    print(api_key)
+    return render_template('dialogs/delete.html',api_key=api_key)
+

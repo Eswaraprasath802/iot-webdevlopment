@@ -27,7 +27,6 @@ class API:
      
   def is_validy(self):
     vaildity=0
-    print(" all right")
     login_time = self.API_collection.time
     # vaildity = self.API_collection.vaildity
     if vaildity==0:
