@@ -68,6 +68,7 @@ $('.btn-to-add-api-key').on('click',function() {
                                 $.get('/row/'+data.hash, function(random_data, status, xhr){
                                     if(status=="success"){
                                         $("#row_of_table").append(random_data);
+                                        APIkeyListerners()
                                         //TODO: Check if we need to reinitialize click event for delete button, since its dynamically added to DOM.
                                     }
                                 });
@@ -161,3 +162,60 @@ $('.delete-button').on('click',function(){
     })
 
 })
+
+function APIkeyListerners(){
+    $('.btn-api-switch').on('change',function(){
+    var api_keys=$(this).attr('id');
+    var status=$(this).is(":checked"); 
+    var badge=$(this).parent().parent().parent().find('.api-status-badge');
+    $.post('/enable/button',{
+        'id':api_keys,
+        'status':status
+
+    },
+    function(data, status, xhr){
+        if (data.key){
+            $(badge).removeClass('.hai').addClass('.welcome').html('Online');
+        }
+        else{
+            $(badge).removeClass('.welcome').addClass('.hai').html('Offline');
+        }
+    }
+
+);
+});
+
+
+$('.delete-button').on('click',function(){
+    var api_key=$(this).attr('id');
+    var orginal_key=$(this).attr('importantid')
+    // $.get('/row/'+data.hash, function(random_data, status, xhr){
+    
+    $.get('api/dialog/api_key_delete/'+api_key,function(variable_data,status,xhr){
+        h=new Dialog('delete Device Group',variable_data);
+        h.setButtons([
+            {
+                name:"Delete button",
+                class:'btn bg-gradient-success btn-delete',
+                onClick:function(event){
+                    $.get('api/delete/database/'+orginal_key,function(singular_data,status,xhr){
+                        if (status=='success'){
+                            console.log("delte databse sucessfull")
+                             var modal =$(event.data.modal);
+                              $(modal).modal('hide');
+                              $("#row" + orginal_key).remove();
+                            
+                        }
+
+                    })
+                }
+            }
+        ])
+        h.show();
+    })
+
+})
+
+
+
+}
