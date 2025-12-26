@@ -23,6 +23,12 @@ class API:
       self._id=self.API_collection.id # this line purpose is to check the passed id and the id qquerying from the database are same or not
     except Exception as e:
       raise Exception("Invalid API key")
+    
+  def get_devices(self):
+      device=db.devices.find_one({
+        "api":self.API_collection.hash
+      })
+      return device
    
      
   def is_validy(self):

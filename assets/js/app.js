@@ -59,20 +59,21 @@ $('.btn-to-add-device').on('click',function(){
                         if (status=="success"){
                             n=new Toast ("Device Registered","now","Device has been registed sucessfully");
                             n.show();
+                            $("#device_id").append(data)
                         }
                         $(event.data.modal).modal('hide');
-                }).fail(function(xhr,status,error){
-                    n=new Toast ("error","now","SomeThing went wrong");
-                            n.show();
-
-                })
+                    }).fail(function(xhr,status,error){
+                        n=new Toast ("error","now","SomeThing went wrong");
+                        n.show();
+                        
+                    })
+                    
+                }
                 
             }
-            
-        }
-    ])
-    j.show()
-})
+        ])
+        j.show()
+    })
 })
 $('.btn-to-add-api-key').on('click',function() {
     $.get('/api/dialog/api_keys', function(data, status, xhr) {

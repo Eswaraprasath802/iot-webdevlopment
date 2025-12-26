@@ -14,6 +14,7 @@ def add_device():
     dtype=request.form["type"]
     api=request.form["group"]
     remarks=request.form["remarks"]
+    request_json='json' in request.form
 
     if len(name)<3:
        print("hai")
@@ -39,13 +40,15 @@ def add_device():
           "Status":"failed",
         },400
     api_key=API(api)
-    print("completed the hai")
     if (api_key.is_validy()):
       dev_id=Device.register_device(name,dtype,api,remarks,session.get("username"))
-      return{
-        "staus":"success",
-        "message":dev_id.API_collection.id
-      },200
+      if request_json:
+        return{
+          "status":"success"
+        },200
+      else:
+        print("devices")
+        return render_template('devices/card.html',device=dev_id.API_collection)
     else:
       return{
       "status":"failed"

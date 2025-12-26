@@ -48,7 +48,6 @@ class API_devices:
         "time":time(),#7 days
         "active":True,
         "group":key.API_collection.device_group,
-        "linked_device":None
   
       })
       return API_devices(id_)

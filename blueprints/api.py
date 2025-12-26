@@ -58,7 +58,6 @@ def authenticate():
             session["authenticated"]=True
             session["username"]=username
             session["sessid"]=sessid
-            session['type']='web'
             if redirect in request.form and request.form["redirect"]==True:
                return redirect(url_for('home.dashboard'))
             else:
