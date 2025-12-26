@@ -24003,6 +24003,28 @@ hr.horizontal.gray-light {
   }
 }
 
+/* Ensure SVG icons inside sidebar nav icons have consistent visible size */
+.navbar-vertical .navbar-nav .nav-item .nav-link .icon svg {
+  width: 25px !important;
+  height: 25px !important;
+  display: block;
+}
+
+/* Increase the visible size of sidebar icon containers and their SVGs */
+.navbar-vertical .navbar-nav .nav-item .nav-link .icon {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.navbar-vertical .navbar-nav .nav-item .nav-link .icon svg {
+  width: 32px !important;
+  height: 32px !important;
+}
+
 @media (min-width: 576px) and (-ms-high-contrast: none),
 (min-width: 576px) and (-ms-high-contrast: active) {
   .navbar-vertical.navbar-expand-sm>[class*=container] {

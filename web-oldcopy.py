@@ -5,7 +5,7 @@ import os
 import math
 from sourcefile import get_config
 from sourcefile.User import user
-from blueprints import home,api,files,motion,dialog
+from blueprints import home,api,files,motion,dialog,device,device_api
 from sourcefile.API import API
 
 
@@ -42,7 +42,8 @@ app.register_blueprint(api.bp)
 app.register_blueprint(files.bp)
 app.register_blueprint(motion.bp)
 app.register_blueprint(dialog.bp)
-
+app.register_blueprint(device.bp)
+app.register_blueprint(device_api.bp)
 
 
 

@@ -11,7 +11,6 @@ def dashboard():
    d={
       "authentication":True
    }
-   print("testing to dashboard")
    return render_template('dashboard.html',data=session) 
 
 @bp.route("enable/button",methods=['POST'])

@@ -69,19 +69,24 @@ class API:
         "active":True,
         "type":_type,
         "request":request_info,
-        "hash":hash_password(id_) 
+        "hash":hash_password(id_) ,
+          "linked_device":None
         # This line is one of the important lines       
         })
       return API(id_)
     
   @staticmethod
-  def get_api(session):
+  def get_api(session,unlinked=False):
     if session.get("authenticated") is None or session.get("authenticated")==False:
       raise Exception("User not authenticated")
     else:
       username=session['username']
       groups=db.api_keys
-      result=groups.find({"username":username})
+      if  unlinked:
+       query={"username":username,"linked_device":None}
+      else:
+       query={"username":username}
+      result=groups.find(query)
       print(result)
       result = list(result)
       return result
