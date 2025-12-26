@@ -25,6 +25,7 @@ class API:
       raise Exception("Invalid API key")
     
   def get_devices(self):
+      print(self.API_collection.hash)
       device=db.devices.find_one({
         "api":self.API_collection.hash
       })
