@@ -1,9 +1,14 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="/iotweb/js/core/popper.min.js"></script>
-<script src="/iotweb/js/core/bootstrap.min.js"></script>
-<script src="/iotweb/js/plugins/perfect-scrollbar.min.js"></script>
-<script src="/iotweb/js/plugins/smooth-scrollbar.min.js"></script>
-<script src="/iotweb/js/plugins/chartjs.min.js"></script>
+
+ <script   src="https://code.jquery.com/jquery-3.7.0.js"   integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="   crossorigin="anonymous"></script>
+ <!-- <script src="/js/core/popper.min.js"></script> -->
+  <!-- <script src="/js/core/bootstrap.min.js"></script> -->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.2/viewer.min.js" integrity="sha512-1TCjsgfYd9edJ4mO6sb8rLzhnGpnFR4GazDGVhDekHrOHU7y7vcqGiO+4yW0HIDBoIY/ocbM/BrXxg8dYO6wSQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+ <script src="/js/plugins/perfect-scrollbar.min.js"></script>
+ <script src="/js/plugins/smooth-scrollbar.min.js"></script>
+ <script src="/js/plugins/chartjs.min.js"></script>
+
 
 <script>
   var ctx1 = document.getElementById("chart-line").getContext("2d");
@@ -105,3 +110,47 @@
 <script src="/iotweb/js/app.js"></script>
 <script src="/iotweb/js/toast.js"></script>
 <script src="https://kit.fontawesome.com/YOUR_KIT_ID.js" crossorigin="anonymous"></script>
+
+
+<!-- <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  function apicall() {
+    return `
+      <li><img src="https://picsum.photos/id/1/5000/3333"></li>
+      <li><img src="https://picsum.photos/id/8/5000/3333"></li>
+      <li><img src="https://picsum.photos/id/7/4728/3168"></li>
+    `;
+  }
+
+  const images = document.getElementById("images");
+  if (!images) return;
+
+  const gallery = new Viewer(images, {
+    loop: false,
+
+    shown() {
+      console.log("viewer shown");
+    },
+
+    view(event) {
+      const current = event.detail.index;
+      const total = gallery.length;
+
+      if (total - current <= 1) {
+        $("#images").append(apicall());
+        gallery.update();
+      }
+    }
+  });
+
+  $("#Raspberrypi-cam-1").on("click", function () {
+    gallery.show();
+  });
+
+  $("#Raspberrypi-cam").on("mouseenter", function () {
+    gallery.zoomTo(1);
+  });
+
+});
+</script> -->

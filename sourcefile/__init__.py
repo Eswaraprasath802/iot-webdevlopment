@@ -23,7 +23,7 @@ def time_ago(timestamp):
         return "Just now"
 
 def get_config(key):
-  filepath = "/home/eswaraprasath/iot-webdevlopment/config.json"
+  filepath = "/home/eswaraprasath/iot-web/iot-webdevlopment/config.json"
   file=open(filepath,"r")
   config=json.loads(file.read())
   if key in config:

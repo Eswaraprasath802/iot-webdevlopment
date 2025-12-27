@@ -28,13 +28,14 @@ def motion_capture():
            filename=str(uuid.uuid4())
            file_id= fs.upload_from_stream(filename,files,metadata=metadata)
            mc=Motioncamera(device_id)
-           mc.save_capture(file_id)
-           return{
+           facess={
             "filename":files.filename,
             "message": "file uploaded successfully",
             
             "download_url": '/files/download/'+filename
         }
+           mc.save_capture(file_id,facess)
+           return facess,200
         else:
           return {
             'message':'something went wrong'

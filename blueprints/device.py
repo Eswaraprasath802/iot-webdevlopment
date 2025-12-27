@@ -4,7 +4,10 @@ from sourcefile.session import Session
 from sourcefile.apigroups import API as apigroup
 from sourcefile.API import API, APIcollection
 from sourcefile import get_config
+from sourcefile.motioncamera.camera1 import Motioncamera
+from sourcefile.database import databaseconnection
 from sourcefile.device import API_devices
+
 bp=Blueprint('device', __name__, url_prefix='/')
 
 @bp.route('/device')
@@ -15,6 +18,12 @@ def device():
 def add():
   return render_template('devices/add.html',data=session,apis=list(API.get_api(session,True)),dtypes=get_config("device"))
 
-@bp.route('/mcamera/<id>')
-def mcamera(id):
-  pass
+@bp.route('/mcamera/<_id>')
+def mcamera(_id):
+    db = databaseconnection.connection()
+    device = db.devices.find_one({"id": _id})
+    dev = Motioncamera(_id)
+    return render_template(
+        "devices/mcamera.html",
+        device=dev,data=session
+    )

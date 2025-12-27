@@ -1,0 +1,37 @@
+ {% extends "_master.html" %}
+{% block main %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-auto float-end">
+      <button id="Raspberrypi-cam-1" class="btn btn-danger">View all captures</button>
+    </div>
+      <div id="Raspberrypi-cam" class="card text-center">
+        <div class="Raspberrypi-cam">
+          Featured
+        </div>
+        <div class="card text-bg-dark">
+          <img id ='latest-image' height=500 src="{{latest}}" class="card-img" alt="">
+          <div class="card-img-overlay">
+            <p class="card-text"><small>Time</small></p>
+          </div>
+        </div>
+        <div class="card-footer text-body-secondary">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <ul id="images" style="display:none;">
+    <li><img src="https://picsum.photos/id/1/5000/3333" alt="Picture 1"></li>
+    <li><img src="https://picsum.photos/id/8/5000/3333" alt="Picture 2"></li>
+    <li><img src="https://picsum.photos/id/7/4728/3168" alt="Picture 3"></li>
+  </ul>
+</div>
+</div>
+
+
+
+{% endblock %}

@@ -258,3 +258,88 @@ $('.btn-to-add-api-key').on('click',function() {
         
         
     }
+    
+    function apiCall(){
+        //do network calls and fetch more images
+        return `
+    <li><img src="https://picsum.photos/id/1/5000/3333" alt="Picture 1"></li>
+    <li><img src="https://picsum.photos/id/4/5000/3333" alt="Picture 2"></li>
+    <li><img src="https://picsum.photos/id/7/4728/3168" alt="Picture 3"></li>
+    <li><img src="https://picsum.photos/id/1/5000/3333" alt="Picture 1"></li>
+    <li><img src="https://picsum.photos/id/4/5000/3333" alt="Picture 2"></li>
+    <li><img src="https://picsum.photos/id/7/4728/3168" alt="Picture 3"></li>
+    `
+    }
+    
+    let viewer = null;
+    
+    function initializeViewer() {
+        const images = document.getElementById('images');
+        console.log('initializeViewer called, images element:', images);
+        
+        if (!images) {
+            console.error('ERROR: #images element not found in DOM');
+            return;
+        }
+        
+        if (typeof Viewer === 'undefined') {
+            console.error('ERROR: Viewer library not loaded');
+            return;
+        }
+        
+        if (!viewer) {
+            console.log('Initializing Viewer');
+            try {
+                viewer = new Viewer(images, {
+                    loop: true,
+                    interval: 500,
+                    view: function(event){
+                        console.log((event.detail.index + 1) + " / " +viewer.length);
+                        var cur_image = event.detail.index + 1;
+                        var length = viewer.length;
+                        var leftover = 1;
+                        
+                        if(length - cur_image <= leftover){
+                            console.log("now we can add more images");
+                            $(images).append(apiCall());
+                            viewer.update();
+                        }
+                    }
+                });
+                console.log('Viewer initialized successfully');
+            } catch (e) {
+                console.error('Error initializing Viewer:', e);
+            }
+        }
+    }
+    
+    $('#Raspberrypi-cam-1').on('click', function(e){
+        console.log("i am clicked as new")
+        initializeViewer();
+        if (viewer && viewer.show) {
+            viewer.show();
+        } else {
+            console.error("Viewer not initialized");
+        }
+    });
+    
+    $(".mousetest").on('mouseenter', function(e){
+        console.log("mouse entered");
+    });
+    
+    $(".mousetest").on('mouseleave', function(e){
+        console.log("mouse exited");
+    });
+    
+    
+    
+    if (window.location.pathname.startsWith('/mcamera')){
+        var device_id=window.location.pathname.split('/').reverse()[0];
+        console.log(device_id) 
+        setInterval(function(){
+            $.get('/device/latest/'+device_id,function(data){
+                $("#latest-image").attr('src',data.uri)
+            })
+        },1000)
+    }
+    

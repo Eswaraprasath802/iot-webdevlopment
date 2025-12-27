@@ -4,6 +4,7 @@ from sourcefile.session import Session
 from sourcefile.apigroups import API as apigroup
 from sourcefile.API import API, APIcollection
 from sourcefile.device import API_devices as Device
+from sourcefile.database import databaseconnection
 from sourcefile import get_config
 bp=Blueprint('device_api', __name__, url_prefix='/device')
 
@@ -18,14 +19,14 @@ def add_device():
 
     if len(name)<3:
        print("hai")
-       return{
+       return {
       "status":"name is too short"
-      },401
+      }, 401
       
     if len(remarks)<3:
-      return{
-      "status":"remarks is toos short"
-      },402
+      return {
+      "status":"remarks is too short"
+      }, 402
 
     vaild_type=False
     d_type=get_config("device")
@@ -57,3 +58,25 @@ def add_device():
     return{
       "status":"failed"
       },400
+
+@bp.route('/latest/<_id>')
+def last_motion_capture(_id):
+   db=databaseconnection.connection()
+   result=db.motion_capture.find_one({
+     "device_id":_id,
+     "owner":session.get("username")
+   }
+   ,sort=[(
+     "time",-1
+   )]
+   )
+
+   if "facess" in result:
+       return {
+         'uri':result["facess"]["download_url"]
+         }
+   else:
+       return {
+         "error":"facess field not found in record"
+       }, 404
+  
